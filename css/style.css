@@ -18,6 +18,8 @@ body {
 }
 
 #screen {
+    display: flex;
+    flex-direction: column;
     height: 50%;
     background-color: white;
     color: black;
@@ -55,4 +57,13 @@ header {
 
 .text {
     margin: 1px 0;
+}
+
+.buttons {
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 40px;
 }
