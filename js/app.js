@@ -26,7 +26,8 @@ const startElement = document.querySelector('#start-button');
 
 // >> FUNCTIONS <<
 const startHandler = () => {
-    outputElement.textContent = 'You started the game!!';
+    startElement.remove()
+    outputElement.textContent = 'Game started!!';
 }
 
 const createPeonHandler = () => {
