@@ -67,3 +67,14 @@ header {
     margin-bottom: 30px;
     gap: 40px;
 }
+
+.text-output {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 120px;
+    width: auto;
+    margin: 0px 30px;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
