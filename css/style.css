@@ -78,3 +78,22 @@ header {
     border: 1px solid black;
     box-sizing: border-box;
 }
+
+.temp {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: auto;
+}
+
+#start-button {
+    display: flex;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #00FF7F;
+    width: 100px;
+    justify-content: center;
+    height: 35px;
+    align-items: center;
+    border-radius: 50%;
+}
