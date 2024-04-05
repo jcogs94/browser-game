@@ -1,11 +1,16 @@
 body {
-    background: #333;
-}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+  }
 
 #display {
-    margin: auto;
     width: 500px;
     height: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 #screen, #player {
@@ -20,7 +25,6 @@ body {
 
 #player {
     height: 35%;
-    margin-top: 20px;
     background-color: black;
     color: white;
 }
