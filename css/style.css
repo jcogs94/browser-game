@@ -25,19 +25,14 @@ body {
     color: black;
 }
 
-#barracks-display {
-    height: 35%;
-    background-color: black;
-    color: white;
-}
-
-header {
+#top-heading {
     text-align: center;
     font-weight: bold;
     position: relative;
     padding: 10px;
     border-bottom: 2px solid black;
     box-sizing: border-box;
+    margin: 0;
 }
 
 .player-info {
@@ -96,4 +91,33 @@ header {
     height: 35px;
     align-items: center;
     border-radius: 50%;
+}
+
+#barracks-display {
+    height: 35%;
+    background-color: black;
+    color: white;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.barracks-info {
+    display: flex;
+    height: calc(100% - 40px);
+    width: 220px;
+    justify-content: space-around;
+    margin: 20px auto;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.barracks-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: start;
+    margin: 0;
+    padding: 12px auto;
+    border-bottom: 2px solid white;
 }

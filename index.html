@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <script defer src="js/app.js"></script>
-    <title>Turn-based Strategy Game</title>
+    <title>Castle Battle</title>
 </head>
 <body>
     <div id="display">
         <div id="screen">
-            <header>Turn-based Strategy Game</header>
+            <h3 class="heading" id="top-heading">Castle Battle</h3>
             <div class="player-info">
                 <div class="player">
-                    <h3 class="text"><u>Player...</u></h3>
+                    <h3 class="text"><u><span class="player-name">Player...</span></u></h3>
                     <p class="text"><b>Hit Points: </b> <span id="player-hitpoints">10</span></p>
                 </div>
                 <div class="computer">
@@ -33,7 +33,12 @@
             </div>
         </div>
         <div id="barracks-display">
-        
+            <div class="barracks-info" id="player-barracks">
+                <h3 class="heading barracks-heading" id="player-barracks"><span class="player-name">Player </span>Barracks</h3>
+            </div>
+            <div class="barracks-info" id="computer-barracks">
+                <h3 class="heading barracks-heading" id="computer-barracks">Computer Barracks</h3>
+            </div>
         </div>
     </div>
 </body>
