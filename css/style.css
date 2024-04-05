@@ -20,6 +20,16 @@ body {
 
 #player {
     height: 35%;
+    margin-top: 20px;
     background-color: black;
     color: white;
+}
+
+header {
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+    padding: 10px;
+    border-bottom: 2px solid black;
+    box-sizing: border-box;
 }
