@@ -14,6 +14,9 @@ let peon = {
     job: ''
 };
 
+// >> VARIABLES >>
+let start = true;
+
 
 // >> ELEMENT CASHE <<
 const playerHpElement = document.querySelector('#player-hitpoints');
@@ -22,20 +25,45 @@ const createPeonElement = document.querySelector('#create-peon');
 const selectPeonElement = document.querySelector('#select-peon');
 const outputElement = document.querySelector('#output');
 const startElement = document.querySelector('#start-button');
+const tempElement = document.querySelector('.temp');
 
 
 // >> FUNCTIONS <<
+const addInputAndSubmit = () => {
+    const newInput = document.createElement('input');
+    newInput.setAttribute('id', 'inputBox');
+    newInput.setAttribute('type', 'text');
+    newInput.setAttribute('placeholder', 'Type here');
+
+    const newButton = document.createElement('button');
+    newButton.setAttribute('id', 'inputButton');
+    newButton.innerText = 'Submit';
+    
+    tempElement.appendChild(newInput);
+    tempElement.appendChild(newButton);
+};
+
+const startGame = () => {
+    addInputAndSubmit();
+
+    outputElement.innerHTML = 'Welcome to the game!<br><br>What is your name?';
+}
+
 const startHandler = () => {
     startElement.remove()
-    outputElement.textContent = 'Game started!!';
+    startGame();
 }
 
 const createPeonHandler = () => {
-    outputElement.textContent = 'You created a peon!!';
+    if (!start) {
+        outputElement.textContent = 'You created a peon!!';
+    }
 }
 
 const selectPeonHandler = () => {
-    outputElement.textContent = 'You selected a peon!!';
+    if (!start) {
+        outputElement.textContent = 'You selected a peon!!';
+    }
 }
 
 

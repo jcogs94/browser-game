@@ -83,6 +83,7 @@ button {
     flex-direction: row;
     justify-content: center;
     margin-top: auto;
+    gap: 20px;
 }
 
 #output {
@@ -90,6 +91,7 @@ button {
     justify-content: center;
     align-content: center;
     margin: auto;
+    text-align: center;
 }
 
 #start-button {
