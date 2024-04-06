@@ -17,6 +17,7 @@ let playerCreatePeon = false;
 let newPeon = new peon;
 let newPeonNamed = false;
 let playerTurn = true;
+let continueButtonDisplayed = false;
 
 
 // >> ELEMENT CASHE <<
@@ -43,6 +44,18 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const continueButtonHandler = () => {
+    console.log('made it to continue handler');
+    // // start player/computer's turn
+    // playerTurn = !playerTurn;
+    // if (playerTurn)
+    //     // start player's turn
+    // else
+    //     // start computer's turn
+    
+    continueButtonDisplayed = false;
 }
 
 const damageAndEval = () => {
@@ -98,12 +111,12 @@ const damageAndEval = () => {
             // Display result of computer's turn
         }
         
-        // start player/computer's turn
-        // playerTurn = !playerTurn;
-        // if (playerTurn)
-        //     // start player's turn
-        // else
-        //     // start computer's turn
+        // Creates new 'Continue' button to continue when player is ready
+        const newButton = document.createElement('button');
+        newButton.setAttribute('id', 'continueButton');
+        newButton.innerText = 'Continue';
+        tempElement.appendChild(newButton);
+        continueButtonDisplayed = true;
     }
 }
 
@@ -196,7 +209,7 @@ const createPeonHandler = () => {
         // 'Attack' click to newPeonAction()
         if (playerCreatePeon && newPeonNamed)
             newPeonAction('attack');
-        else
+        else if (!continueButtonDisplayed)
             createPeon();
     }
 
@@ -208,7 +221,7 @@ const selectPeonHandler = () => {
         // 'Repair' click to newPeonAction()
         if (playerCreatePeon && newPeonNamed)
             newPeonAction('repair');
-        else if (!playerCreatePeon)
+        else if (!playerCreatePeon && !continueButtonDisplayed)
             outputElement.textContent = 'You selected a peon!!';
     }
 };
@@ -227,4 +240,11 @@ document.body.addEventListener( 'click', function ( event ) {
         inputButtonElement = document.querySelector('#inputButton');
         inputButtonHandler();
     };
-  } );
+} );
+
+document.body.addEventListener( 'click', function ( event ) {
+    if( event.target.id === 'continueButton' ) {
+        inputButtonElement = document.querySelector('#continueButton');
+        continueButtonHandler();
+    };
+} );
