@@ -37,6 +37,30 @@ let inputButtonElement;
 
 
 // >> FUNCTIONS <<
+const damageAndEval = () => {
+    let attack = 0;
+    let repair = 0;
+
+    if (playerTurn) {
+        player.barracks.forEach((fighter) => {
+            if (fighter.job === 'attack')
+                attack += getRandomInt(1, 4);
+            else if (fighter.job === 'repair')
+                repair += getRandomInt(1, 4);
+        })
+
+        player.hp += repair;
+        computer.hp -= attack;
+    }
+    else {
+        // placeholder for computer turn
+    }
+
+    
+
+    playerTurn = !playerTurn;
+}
+
 const addInputAndSubmit = () => {
     const newInput = document.createElement('input');
     newInput.setAttribute('id', 'inputBox');
@@ -114,6 +138,7 @@ const newPeonAction = action => {
     playerCreatePeon = false;
     createPeonElement.innerText = 'Create Peon';
     selectPeonElement.innerText = 'Select Peon';
+    damageAndEval();
 };
 
 const createPeonHandler = () => {
