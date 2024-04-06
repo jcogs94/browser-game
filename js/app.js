@@ -60,7 +60,7 @@ const inputButtonHandler = () => {
 
         start = false;
 
-        outputElement.innerHTML = `Welcome ${player.name}!`;
+        outputElement.innerHTML = `Welcome ${player.name}!<br><br>You are in your kingdom and you are being invaded by an enemy kingdom. Each turn you can choose to either create a Peon or select one to give it a job. Do so now to start the game.`;
     }
     else {
         // placeholder for inputButton peon creation
@@ -69,9 +69,7 @@ const inputButtonHandler = () => {
 
 const startGame = () => {
     addInputAndSubmit();
-    outputElement.innerHTML = 'Welcome to the game!<br><br>What is your name?';
-    
-    
+    outputElement.innerHTML = 'Welcome to Castle Battle!<br><br>What is your name?';
 };
 
 const startHandler = () => {

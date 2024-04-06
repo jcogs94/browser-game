@@ -78,6 +78,10 @@ button {
     box-sizing: border-box;
 }
 
+#output {
+    padding: 5px;
+}
+
 .temp {
     display: flex;
     flex-direction: row;
