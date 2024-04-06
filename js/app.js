@@ -75,8 +75,13 @@ const damageAndEval = () => {
         console.log('Player won');
     }
     else {
-        console.log('Player health:', player.hp);
-        console.log('Computer health:', computer.hp);
+        if (playerTurn) {
+            // Display result of player's turn
+            outputElement.innerHTML = `End of ${player.name}'s Turn:<br><br>${player.name} attacked for ${attack} damage.<br>${player.name} repaired for ${repair} health.`;
+        }
+        else {
+            // Display result of computer's turn
+        }
         
         // start player/computer's turn
         playerTurn = !playerTurn;
