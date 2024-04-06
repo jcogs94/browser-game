@@ -10,16 +10,11 @@ let computer = {
     barracks: []
 };
 
-let peon = {
-    name: '',
-    job: 'none'
-};
-
 // >> VARIABLES >>
 let start = true;
 let firstTurn = true;
 let playerCreatePeon = false;
-let newPeon = peon;
+let newPeon = new peon;
 let newPeonNamed = false;
 let playerTurn = true;
 
@@ -37,6 +32,11 @@ let inputButtonElement;
 
 
 // >> FUNCTIONS <<
+function peon (newName, newJob) {
+    this.name = newName,
+    this.job = newJob
+};
+
 // Found at url below:
 // https://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range
 function getRandomInt(min, max) {
@@ -75,6 +75,21 @@ const damageAndEval = () => {
         console.log('Player won');
     }
     else {
+        // Found from url below:
+        // 
+        while( playerHpElement.firstChild ) {
+            playerHpElement.removeChild( playerHpElement.firstChild );
+        }
+        playerHpElement.appendChild( document.createTextNode(player.hp) );
+        // Same as above
+        while( computerHpElement.firstChild ) {
+            computerHpElement.removeChild( computerHpElement.firstChild );
+        }
+        computerHpElement.appendChild( document.createTextNode(computer.hp) );
+        
+        // playerHpElement.textContent = player.hp;
+        // computerHpElement.textContent = computerHpElement;
+
         if (playerTurn) {
             // Display result of player's turn
             outputElement.innerHTML = `End of ${player.name}'s Turn:<br><br>${player.name} attacked for ${attack} damage.<br>${player.name} repaired for ${repair} health.`;
@@ -84,7 +99,7 @@ const damageAndEval = () => {
         }
         
         // start player/computer's turn
-        playerTurn = !playerTurn;
+        // playerTurn = !playerTurn;
         // if (playerTurn)
         //     // start player's turn
         // else
@@ -164,7 +179,7 @@ const newPeonAction = action => {
     player.barracks.push(newPeon);
     
     // reset variables and objects
-    newPeon = peon;
+    newPeon = new peon;
     newPeonNamed = false;
     playerCreatePeon = false;
     createPeonElement.innerText = 'Create Peon';
