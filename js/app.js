@@ -47,7 +47,6 @@ function getRandomInt(min, max) {
 }
 
 const continueButtonHandler = () => {
-    console.log('made it to continue handler');
     // // start player/computer's turn
     // playerTurn = !playerTurn;
     // if (playerTurn)
@@ -55,6 +54,7 @@ const continueButtonHandler = () => {
     // else
     //     // start computer's turn
     
+    inputButtonElement.remove();
     continueButtonDisplayed = false;
 }
 
@@ -148,7 +148,7 @@ const inputButtonHandler = () => {
 
         start = false;
 
-        outputElement.innerHTML = `Welcome ${player.name}!<br><br>You are in your kingdom and you are being invaded by an enemy kingdom. Each turn you can choose to either create a Peon or select one to give it a job. Create your first one now to start the game.`;
+        outputElement.innerHTML = `Welcome ${player.name}!<br><br>You are in your kingdom and you are being invaded by an enemy kingdom. Each turn you can choose to either create a Peon or select one to change its job. Create your first one now to start the game.`;
     }
     else if (playerCreatePeon) {
         // Allows the user to enter a name and choose the job
