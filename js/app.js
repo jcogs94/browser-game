@@ -1,6 +1,5 @@
 // >> OBJECTS <<
 let player = {
-    name: '',
     hp: 10,
     barracks: []
 };
@@ -46,13 +45,17 @@ const addInputAndSubmit = () => {
 };
 
 const inputButtonHandler = () => {
-    // console.log('test');
-    console.log(inputBoxElement.value);
+    if (start) {
+        let nameElement = document.querySelectorAll('.player-name');
+        nameElement.forEach( (element) => element.innerText = inputBoxElement.value);
+    }
+    else {
+
+    }
 };
 
 const startGame = () => {
     addInputAndSubmit();
-    // inputButtonElement.addEventListener('click', inputButtonHandler);
     outputElement.innerHTML = 'Welcome to the game!<br><br>What is your name?';
     
     
