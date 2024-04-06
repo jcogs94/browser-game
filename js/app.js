@@ -1,5 +1,6 @@
 // >> OBJECTS <<
 let player = {
+    name: '',
     hp: 10,
     barracks: []
 };
@@ -26,6 +27,7 @@ const selectPeonElement = document.querySelector('#select-peon');
 const outputElement = document.querySelector('#output');
 const startElement = document.querySelector('#start-button');
 const tempElement = document.querySelector('.temp');
+let inputBoxElement;
 
 
 // >> FUNCTIONS <<
@@ -43,31 +45,47 @@ const addInputAndSubmit = () => {
     tempElement.appendChild(newButton);
 };
 
+const inputButtonHandler = () => {
+    // console.log('test');
+    console.log(inputBoxElement.value);
+};
+
 const startGame = () => {
     addInputAndSubmit();
-
+    // inputButtonElement.addEventListener('click', inputButtonHandler);
     outputElement.innerHTML = 'Welcome to the game!<br><br>What is your name?';
-}
+    
+    
+};
 
 const startHandler = () => {
     startElement.remove()
     startGame();
-}
+};
 
 const createPeonHandler = () => {
     if (!start) {
         outputElement.textContent = 'You created a peon!!';
     }
-}
+};
 
 const selectPeonHandler = () => {
     if (!start) {
         outputElement.textContent = 'You selected a peon!!';
     }
-}
+};
 
 
 // >> EVENT LISTENERS <<
 createPeonElement.addEventListener('click', createPeonHandler);
 selectPeonElement.addEventListener('click', selectPeonHandler);
 startElement.addEventListener('click', startHandler);
+
+// Found from following url:
+// https://stackoverflow.com/questions/34896106/attach-event-to-dynamic-elements-in-javascript
+document.body.addEventListener( 'click', function ( event ) {
+    if( event.target.id === 'inputButton' ) {
+        inputBoxElement = document.querySelector('#inputBox');
+        inputButtonHandler();
+    };
+  } );
