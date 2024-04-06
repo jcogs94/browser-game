@@ -1,5 +1,6 @@
 // >> OBJECTS <<
 let player = {
+    name: '',
     hp: 10,
     barracks: []
 };
@@ -27,6 +28,7 @@ const outputElement = document.querySelector('#output');
 const startElement = document.querySelector('#start-button');
 const tempElement = document.querySelector('.temp');
 let inputBoxElement;
+let inputButtonElement;
 
 
 // >> FUNCTIONS <<
@@ -46,11 +48,22 @@ const addInputAndSubmit = () => {
 
 const inputButtonHandler = () => {
     if (start) {
+        player.name = inputBoxElement.value;
+        
+        // On button push during start, grabs 'name' elements and updates value with
+        // user input
         let nameElement = document.querySelectorAll('.player-name');
-        nameElement.forEach( (element) => element.innerText = inputBoxElement.value);
+        nameElement.forEach( (element) => element.innerText = player.name);
+
+        inputBoxElement.remove();
+        inputButtonElement.remove();
+
+        start = false;
+
+        outputElement.innerHTML = `Welcome ${player.name}!`;
     }
     else {
-
+        // placeholder for inputButton peon creation
     }
 };
 
@@ -89,6 +102,7 @@ startElement.addEventListener('click', startHandler);
 document.body.addEventListener( 'click', function ( event ) {
     if( event.target.id === 'inputButton' ) {
         inputBoxElement = document.querySelector('#inputBox');
+        inputButtonElement = document.querySelector('#inputButton');
         inputButtonHandler();
     };
   } );
