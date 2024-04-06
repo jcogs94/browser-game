@@ -37,10 +37,19 @@ let inputButtonElement;
 
 
 // >> FUNCTIONS <<
+// Found at url below:
+// https://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 const damageAndEval = () => {
     let attack = 0;
     let repair = 0;
 
+    // Calculates damage based off whose turn it is
     if (playerTurn) {
         player.barracks.forEach((fighter) => {
             if (fighter.job === 'attack')
@@ -56,9 +65,26 @@ const damageAndEval = () => {
         // placeholder for computer turn
     }
 
-    
-
-    playerTurn = !playerTurn;
+    // Determines if anyone has died, else continues game
+    if (player.hp <= 0) {
+        // player lost
+        console.log('Player lost');
+    }
+    else if (computer.hp <= 0) {
+        // player won
+        console.log('Player won');
+    }
+    else {
+        console.log('Player health:', player.hp);
+        console.log('Computer health:', computer.hp);
+        
+        // start player/computer's turn
+        playerTurn = !playerTurn;
+        // if (playerTurn)
+        //     // start player's turn
+        // else
+        //     // start computer's turn
+    }
 }
 
 const addInputAndSubmit = () => {
@@ -162,7 +188,7 @@ const selectPeonHandler = () => {
         // 'Repair' click to newPeonAction()
         if (playerCreatePeon && newPeonNamed)
             newPeonAction('repair');
-        else
+        else if (!playerCreatePeon)
             outputElement.textContent = 'You selected a peon!!';
     }
 };
