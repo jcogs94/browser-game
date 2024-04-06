@@ -12,12 +12,13 @@ let computer = {
 
 let peon = {
     name: '',
-    job: ''
+    job: 'none'
 };
 
 // >> VARIABLES >>
 let start = true;
 let firstTurn = true;
+let playerCreatePeon = false;
 
 
 // >> ELEMENT CASHE <<
@@ -63,8 +64,11 @@ const inputButtonHandler = () => {
 
         outputElement.innerHTML = `Welcome ${player.name}!<br><br>You are in your kingdom and you are being invaded by an enemy kingdom. Each turn you can choose to either create a Peon or select one to give it a job. Create your first one now to start the game.`;
     }
-    else {
-        // placeholder for inputButton peon creation
+    else if (playerCreatePeon) {
+        // Creates new peon with the user-input name
+        let newPeon = peon;
+        newPeon.name = inputBoxElement.value;
+        player.barracks.push(newPeon);
     }
 };
 
@@ -78,12 +82,18 @@ const startHandler = () => {
     startGame();
 };
 
+const createPeon = () => {
+    addInputAndSubmit();
+    outputElement.textContent = 'Please name your new Peon:';
+    playerCreatePeon = true;
+}
+
 const createPeonHandler = () => {
     if (!start) {
         if (firstTurn)
             firstTurn = false;
         
-        outputElement.textContent = 'You created a peon!!';
+        createPeon();
     }
 };
 
