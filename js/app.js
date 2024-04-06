@@ -19,6 +19,8 @@ let peon = {
 let start = true;
 let firstTurn = true;
 let playerCreatePeon = false;
+let newPeon = peon;
+let newPeonNamed = false;
 
 
 // >> ELEMENT CASHE <<
@@ -65,10 +67,21 @@ const inputButtonHandler = () => {
         outputElement.innerHTML = `Welcome ${player.name}!<br><br>You are in your kingdom and you are being invaded by an enemy kingdom. Each turn you can choose to either create a Peon or select one to give it a job. Create your first one now to start the game.`;
     }
     else if (playerCreatePeon) {
-        // Creates new peon with the user-input name
-        let newPeon = peon;
-        newPeon.name = inputBoxElement.value;
-        player.barracks.push(newPeon);
+        // Allows the user to enter a name and choose the job
+        if (!newPeonNamed) {
+            // updates name for peon and removes input box and button
+            newPeon.name = inputBoxElement.value;
+            newPeonNamed = true;
+            inputBoxElement.remove();
+            inputButtonElement.remove();
+
+            // Temporarily changes button names for peon creation, handlers redirect
+            // button input to newPeonAction()
+            createPeonElement.innerText = 'Attack';
+            selectPeonElement.innerText = 'Repair';
+
+            outputElement.innerHTML = `What should ${newPeon.name} do?<br><br>Attack: -1~4 Enemy HP/turn<br>Repair: +1~4 ${player.name} HP/turn`;
+        }
     }
 };
 
@@ -86,20 +99,45 @@ const createPeon = () => {
     addInputAndSubmit();
     outputElement.textContent = 'Please name your new Peon:';
     playerCreatePeon = true;
-}
+};
+
+// Updates new peon action according to button input, pushes
+// new peon to player.barracks, and resets button names
+const newPeonAction = action => {
+    newPeon.job = action;
+    player.barracks.push(newPeon);
+    
+    // reset variables and objects
+    newPeon = peon;
+    newPeonNamed = false;
+    playerCreatePeon = false;
+    createPeonElement.innerText = 'Attack';
+    selectPeonElement.innerText = 'Repair';
+};
 
 const createPeonHandler = () => {
     if (!start) {
         if (firstTurn)
             firstTurn = false;
         
-        createPeon();
+        // 'Create Peon' button changes to 'Attack', this if statement redirects the
+        // 'Attack' click to newPeonAction()
+        if (playerCreatePeon && newPeonNamed)
+            newPeonAction('attack');
+        else
+            createPeon();
     }
+
 };
 
 const selectPeonHandler = () => {
     if (!start && !firstTurn) {
-        outputElement.textContent = 'You selected a peon!!';
+        // 'Select Peon' button changes to 'Repair', this if statement redirects the
+        // 'Repair' click to newPeonAction()
+        if (playerCreatePeon && newPeonNamed)
+            newPeonAction('repair');
+        else
+            outputElement.textContent = 'You selected a peon!!';
     }
 };
 
