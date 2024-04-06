@@ -21,6 +21,7 @@ let firstTurn = true;
 let playerCreatePeon = false;
 let newPeon = peon;
 let newPeonNamed = false;
+let playerTurn = true;
 
 
 // >> ELEMENT CASHE <<
@@ -111,8 +112,8 @@ const newPeonAction = action => {
     newPeon = peon;
     newPeonNamed = false;
     playerCreatePeon = false;
-    createPeonElement.innerText = 'Attack';
-    selectPeonElement.innerText = 'Repair';
+    createPeonElement.innerText = 'Create Peon';
+    selectPeonElement.innerText = 'Select Peon';
 };
 
 const createPeonHandler = () => {
