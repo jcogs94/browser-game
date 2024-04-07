@@ -13,11 +13,12 @@ let computer = {
 // >> VARIABLES >>
 let start = true;
 let firstTurn = true;
-let playerCreatePeon = false;
+let playerCreatePeon = true;
 let newPeon = new peon;
 let newPeonNamed = false;
 let playerTurn = true;
 let continueButtonDisplayed = false;
+let computerTurnComplete = false;
 
 
 // >> ELEMENT CASHE <<
@@ -46,24 +47,37 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+const computerTurn = () => {
+    outputElement.innerHTML = 'Computer turn complete.';
+    computerTurnComplete = true;
+}
+
 const continueButtonHandler = () => {
-    // // start player/computer's turn
-    // playerTurn = !playerTurn;
-    // if (playerTurn)
-    //     // start player's turn
-    // else
-    //     // start computer's turn
+    if (computerTurnComplete) {
+        playerTurn = true;
+        computerTurnComplete = false;
+        
+        // Remove continue button and toggle turn
+        inputButtonElement.remove();
+        continueButtonDisplayed = false;
+    }
+
+    // start player/computer's turn
+    if (playerTurn)
+        outputElement.innerHTML = 'Your turn.<br><br>Create a new Peon or select one to change their job.';
+    else
+        computerTurn();
     
-    inputButtonElement.remove();
-    continueButtonDisplayed = false;
 }
 
 const damageAndEval = () => {
     let attack = 0;
     let repair = 0;
 
+    console.log('damageAndEval called');
+
     // Calculates damage based off whose turn it is
-    if (playerTurn) {
+    if (!playerTurn) {
         player.barracks.forEach((fighter) => {
             if (fighter.job === 'attack')
                 attack += getRandomInt(1, 4);
@@ -75,7 +89,15 @@ const damageAndEval = () => {
         computer.hp -= attack;
     }
     else {
-        // placeholder for computer turn
+        computer.barracks.forEach((fighter) => {
+            if (fighter.job === 'attack')
+                attack += getRandomInt(1, 4);
+            else if (fighter.job === 'repair')
+                repair += getRandomInt(1, 4);
+        })
+
+        computer.hp += repair;
+        player.hp -= attack;
     }
 
     // Determines if anyone has died, else continues game
@@ -88,8 +110,9 @@ const damageAndEval = () => {
         console.log('Player won');
     }
     else {
+        // Updates player and computer health in the HTML
         // Found from url below:
-        // 
+        // https://stackoverflow.com/questions/4784568/set-content-of-html-span-with-javascript
         while( playerHpElement.firstChild ) {
             playerHpElement.removeChild( playerHpElement.firstChild );
         }
@@ -99,11 +122,8 @@ const damageAndEval = () => {
             computerHpElement.removeChild( computerHpElement.firstChild );
         }
         computerHpElement.appendChild( document.createTextNode(computer.hp) );
-        
-        // playerHpElement.textContent = player.hp;
-        // computerHpElement.textContent = computerHpElement;
 
-        if (playerTurn) {
+        if (!playerTurn) {
             // Display result of player's turn
             outputElement.innerHTML = `End of ${player.name}'s Turn:<br><br>${player.name} attacked for ${attack} damage.<br>${player.name} repaired for ${repair} health.`;
         }
@@ -154,8 +174,8 @@ const inputButtonHandler = () => {
         // Allows the user to enter a name and choose the job
         if (!newPeonNamed) {
             // updates name for peon and removes input box and button
-            newPeon.name = inputBoxElement.value;
             newPeonNamed = true;
+            newPeon.name = inputBoxElement.value;
             inputBoxElement.remove();
             inputButtonElement.remove();
 
@@ -200,29 +220,38 @@ const newPeonAction = action => {
     damageAndEval();
 };
 
+// >>>>>>>>>> SELECT <<<<<<<<<<<
+const selectPeon = () => {
+    damageAndEval();
+}
+
 const createPeonHandler = () => {
     if (!start) {
-        if (firstTurn)
-            firstTurn = false;
-        
         // 'Create Peon' button changes to 'Attack', this if statement redirects the
         // 'Attack' click to newPeonAction()
         if (playerCreatePeon && newPeonNamed)
             newPeonAction('attack');
-        else if (!continueButtonDisplayed)
+        else if (!continueButtonDisplayed && playerTurn) {
+            if (firstTurn)
+                firstTurn = false;
+            playerTurn = false;
             createPeon();
+        }
     }
-
 };
 
 const selectPeonHandler = () => {
     if (!start && !firstTurn) {
+        // else if will cause bug using "!continueButtonDisplayed"
+
         // 'Select Peon' button changes to 'Repair', this if statement redirects the
         // 'Repair' click to newPeonAction()
         if (playerCreatePeon && newPeonNamed)
             newPeonAction('repair');
-        else if (!playerCreatePeon && !continueButtonDisplayed)
-            outputElement.textContent = 'You selected a peon!!';
+        else if (!playerCreatePeon && !continueButtonDisplayed) {
+            playerTurn = false;
+            selectPeon();
+        }
     }
 };
 
