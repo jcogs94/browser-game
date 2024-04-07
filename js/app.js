@@ -8,6 +8,7 @@ let player = {
 let computer = {
     hp: 10,
     barracks: [],
+    action: '',
     peonCount: 0,
     peonName() {
         this.peonCount++;
@@ -53,10 +54,11 @@ function getRandomInt(min, max) {
 }
 
 const computerTurn = () => {
-    let compAction = 'create';
-    // let compAction = Math.random() < 0.5 ? 'create' : 'select';
-    
-    if (compAction === 'create') {
+    // >>>>>>> TEMP FIXED TO CREATE <<<<<<<<<
+    computer.action = 'create';
+    // computer.action = Math.random() < 0.5 ? 'create' : 'select';
+
+    if (computer.action === 'create') {
         // comp create peon action
         let compPeonAction = Math.random() < 0.5 ? 'repair' : 'attack';
         newPeon.name = computer.peonName();
@@ -150,7 +152,7 @@ const damageAndEval = () => {
         }
         else {
             // Display result of computer's turn
-            outputElement.innerHTML = 'Computer turn complete.';
+            outputElement.innerHTML = `Computer's Turn:<br>The computer decided to ${computer.action} a Peon.<br><br>Computer attacked for ${attack} damage.<br>Computer repaired for ${repair} health.`;
         }
         
         // Creates new 'Continue' button to continue when player is ready
