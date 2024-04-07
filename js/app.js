@@ -7,7 +7,12 @@ let player = {
 
 let computer = {
     hp: 10,
-    barracks: []
+    barracks: [],
+    peonCount: 0,
+    peonName() {
+        this.peonCount++;
+        return ('Peon ' + String(this.peonCount));
+    }
 };
 
 // >> VARIABLES >>
@@ -48,13 +53,30 @@ function getRandomInt(min, max) {
 }
 
 const computerTurn = () => {
-    outputElement.innerHTML = 'Computer turn complete.';
+    let compAction = 'create';
+    // let compAction = Math.random() < 0.5 ? 'create' : 'select';
+    
+    if (compAction === 'create') {
+        // comp create peon action
+        let compPeonAction = Math.random() < 0.5 ? 'repair' : 'attack';
+        newPeon.name = computer.peonName();
+        newPeon.job = compPeonAction;
+        
+        computer.barracks.push(newPeon);
+        newPeon = new peon;
+    }
+    else {
+        // comp select peon action
+    }
+
+    
+    playerTurn = true;
     computerTurnComplete = true;
+    damageAndEval();
 }
 
 const continueButtonHandler = () => {
     if (computerTurnComplete) {
-        playerTurn = true;
         computerTurnComplete = false;
         
         // Remove continue button and toggle turn
@@ -65,16 +87,15 @@ const continueButtonHandler = () => {
     // start player/computer's turn
     if (playerTurn)
         outputElement.innerHTML = 'Your turn.<br><br>Create a new Peon or select one to change their job.';
-    else
+    else {
         computerTurn();
+    }
     
 }
 
 const damageAndEval = () => {
     let attack = 0;
     let repair = 0;
-
-    console.log('damageAndEval called');
 
     // Calculates damage based off whose turn it is
     if (!playerTurn) {
@@ -129,14 +150,18 @@ const damageAndEval = () => {
         }
         else {
             // Display result of computer's turn
+            outputElement.innerHTML = 'Computer turn complete.';
         }
         
         // Creates new 'Continue' button to continue when player is ready
-        const newButton = document.createElement('button');
-        newButton.setAttribute('id', 'continueButton');
-        newButton.innerText = 'Continue';
-        tempElement.appendChild(newButton);
-        continueButtonDisplayed = true;
+        if (!computerTurnComplete) {
+            const newButton = document.createElement('button');
+            newButton.setAttribute('id', 'continueButton');
+            newButton.innerText = 'Continue';
+            tempElement.appendChild(newButton);
+            continueButtonDisplayed = true;
+        }
+        
     }
 }
 
