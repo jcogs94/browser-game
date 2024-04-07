@@ -53,6 +53,15 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+const addPeonToDisplay = (playerAdded) => {
+    if (playerAdded) {
+        console.log('Player added peon');
+    }
+    else {
+        console.log('Computer added peon');
+    }
+}
+
 const computerTurn = () => {
     // >>>>>>> TEMP FIXED TO CREATE <<<<<<<<<
     computer.action = 'create';
@@ -65,6 +74,7 @@ const computerTurn = () => {
         newPeon.job = compPeonAction;
         
         computer.barracks.push(newPeon);
+        addPeonToDisplay(false);
         newPeon = new peon;
     }
     else {
@@ -237,6 +247,7 @@ const createPeon = () => {
 const newPeonAction = action => {
     newPeon.job = action;
     player.barracks.push(newPeon);
+    addPeonToDisplay(true);
     
     // reset variables and objects
     newPeon = new peon;
