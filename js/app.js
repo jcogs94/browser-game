@@ -188,6 +188,7 @@ const damageAndEval = () => {
         gameOver = true;
         createPeonElement.remove();
         selectPeonElement.remove();
+        tempElement.remove();
     }
     else if (computer.hp <= 0) {
         // player won
@@ -195,6 +196,7 @@ const damageAndEval = () => {
         gameOver = true;
         createPeonElement.remove();
         selectPeonElement.remove();
+        tempElement.remove();
     }
     else {
         if (!playerTurn) {
@@ -208,7 +210,6 @@ const damageAndEval = () => {
         
         // Creates new 'Continue' button to continue when player is ready
         if (!computerTurnComplete && !gameOver) {
-            console.log('continue displayed');
             const newButton = document.createElement('button');
             newButton.setAttribute('id', 'continueButton');
             newButton.innerText = 'Continue';
