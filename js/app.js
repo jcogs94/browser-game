@@ -355,8 +355,6 @@ const createPeonHandler = () => {
 
 const selectPeonHandler = () => {
     if (!start && !firstTurn) {
-        // else if will cause bug using "!continueButtonDisplayed"
-
         // 'Select Peon' button changes to 'Repair', this if statement redirects the
         // 'Repair' click to newPeonAction()
         if (playerCreatePeon && newPeonNamed)
@@ -384,7 +382,7 @@ document.body.addEventListener( 'click', function ( event ) {
         inputButtonHandler();
     };
 } );
-
+// Same as above
 document.body.addEventListener( 'click', function ( event ) {
     if( event.target.id === 'continueButton' ) {
         inputButtonElement = document.querySelector('#continueButton');
