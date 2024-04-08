@@ -1,7 +1,7 @@
 // >> OBJECTS <<
 let player = {
     name: '',
-    hp: 5,
+    hp: 10,
     barracks: []
 };
 
