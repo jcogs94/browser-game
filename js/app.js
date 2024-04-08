@@ -35,6 +35,8 @@ const selectPeonElement = document.querySelector('#select-peon');
 const outputElement = document.querySelector('#output');
 const startElement = document.querySelector('#start-button');
 const tempElement = document.querySelector('.temp');
+const playerBarracksElement = document.querySelector('#player-barracks');
+const computerBarracksElement = document.querySelector('#computer-barracks');
 let inputBoxElement;
 let inputButtonElement;
 
@@ -55,10 +57,16 @@ function getRandomInt(min, max) {
 
 const addPeonToDisplay = (playerAdded) => {
     if (playerAdded) {
-        console.log('Player added peon');
+        const playerPeonAdded = document.createElement('p');
+        playerPeonAdded.setAttribute('class', 'peon-info');
+        playerPeonAdded.innerHTML = `${player.barracks[player.barracks.length - 1].name}: ${player.barracks[player.barracks.length - 1].job}`;
+        playerBarracksElement.appendChild(playerPeonAdded);
     }
     else {
-        console.log('Computer added peon');
+        const computerPeonAdded = document.createElement('p');
+        computerPeonAdded.setAttribute('class', 'peon-info');
+        computerPeonAdded.innerHTML = `${computer.barracks[computer.barracks.length - 1].name}: ${computer.barracks[computer.barracks.length - 1].job}`;
+        computerBarracksElement.appendChild(computerPeonAdded);
     }
 }
 
