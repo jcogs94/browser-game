@@ -1,3 +1,5 @@
+// >>>>> Worked on with Brian Taveras <<<<<<<
+
 // >> OBJECTS <<
 let player = {
     name: '',
