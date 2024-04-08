@@ -59,13 +59,13 @@ const addPeonToDisplay = (playerAdded) => {
     if (playerAdded) {
         const playerPeonAdded = document.createElement('p');
         playerPeonAdded.setAttribute('class', 'peon-info');
-        playerPeonAdded.innerHTML = `${player.barracks[player.barracks.length - 1].name}: ${player.barracks[player.barracks.length - 1].job}`;
+        playerPeonAdded.innerHTML = `<b>${player.barracks[player.barracks.length - 1].name}:</b> ${player.barracks[player.barracks.length - 1].job}`;
         playerBarracksElement.appendChild(playerPeonAdded);
     }
     else {
         const computerPeonAdded = document.createElement('p');
         computerPeonAdded.setAttribute('class', 'peon-info');
-        computerPeonAdded.innerHTML = `${computer.barracks[computer.barracks.length - 1].name}: ${computer.barracks[computer.barracks.length - 1].job}`;
+        computerPeonAdded.innerHTML = `<b>${computer.barracks[computer.barracks.length - 1].name}:</b> ${computer.barracks[computer.barracks.length - 1].job}`;
         computerBarracksElement.appendChild(computerPeonAdded);
     }
 }

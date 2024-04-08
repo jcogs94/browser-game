@@ -123,18 +123,22 @@ button {
     display: flex;
     height: calc(100% - 40px);
     width: 220px;
-    justify-content: space-around;
+    justify-content: flex-start;
     margin: 20px auto;
     padding: 5px;
     box-sizing: border-box;
+    flex-direction: column;
 }
 
 .barracks-heading {
-    display: flex;
-    flex-direction: row;
+    display: block;
     justify-content: center;
     align-self: start;
-    margin: 0;
-    padding: 12px auto;
+    margin: 0 auto;
     border-bottom: 2px solid white;
+}
+
+.peon-info {
+    margin: 5px auto;
+    text-align: center;
 }
