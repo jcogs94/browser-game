@@ -8,6 +8,7 @@ let player = {
 let computer = {
     hp: 10,
     barracks: [],
+    compFirstTurn: true,
     action: '',
     peonCount: 0,
     peonName() {
@@ -39,6 +40,7 @@ const playerBarracksElement = document.querySelector('#player-barracks');
 const computerBarracksElement = document.querySelector('#computer-barracks');
 let inputBoxElement;
 let inputButtonElement;
+let changePeonElement;
 
 
 // >> FUNCTIONS <<
@@ -65,15 +67,19 @@ const addPeonToDisplay = (playerAdded) => {
     else {
         const computerPeonAdded = document.createElement('p');
         computerPeonAdded.setAttribute('class', 'peon-info');
+        computerPeonAdded.setAttribute('id', `peon-${computer.peonCount}`);
         computerPeonAdded.innerHTML = `<b>${computer.barracks[computer.barracks.length - 1].name}:</b> ${computer.barracks[computer.barracks.length - 1].job}`;
         computerBarracksElement.appendChild(computerPeonAdded);
     }
 }
 
 const computerTurn = () => {
-    // >>>>>>> TEMP FIXED TO CREATE <<<<<<<<<
-    computer.action = 'create';
-    // computer.action = Math.random() < 0.5 ? 'create' : 'select';
+    if (computer.compFirstTurn === true) {
+        computer.action = 'create';
+        computer.compFirstTurn = false;
+    }
+    else
+        computer.action = Math.random() < 0.5 ? 'create' : 'select';
 
     if (computer.action === 'create') {
         // comp create peon action
@@ -91,10 +97,14 @@ const computerTurn = () => {
         let index = getRandomInt(0, computer.barracks.length - 1);
 
         // Makes change
-        if (computer.barracks[index] === 'repair')
-            computer.barracks[index] = 'attack';
-        else if (computer.barracks[index] === 'attack')
-            computer.barracks[index] = 'repair';
+        if (computer.barracks[index].job === 'repair')
+            computer.barracks[index].job = 'attack';
+        else if (computer.barracks[index].job === 'attack')
+            computer.barracks[index].job = 'repair';
+
+        // Updates barracks screen
+        changePeonElement = document.querySelector(`#peon-${index + 1}`);
+        changePeonElement.innerHTML = `<b>${computer.barracks[index].name}:</b> ${computer.barracks[index].job}`;
     }
 
     
