@@ -1,7 +1,7 @@
 // >> OBJECTS <<
 let player = {
     name: '',
-    hp: 10,
+    hp: 5,
     barracks: []
 };
 
@@ -26,6 +26,8 @@ let newPeonNamed = false;
 let playerTurn = true;
 let continueButtonDisplayed = false;
 let computerTurnComplete = false;
+let playerSelection = false;
+let gameOver = false;
 
 
 // >> ELEMENT CASHE <<
@@ -61,6 +63,7 @@ const addPeonToDisplay = (playerAdded) => {
     if (playerAdded) {
         const playerPeonAdded = document.createElement('p');
         playerPeonAdded.setAttribute('class', 'peon-info');
+        playerPeonAdded.setAttribute('id', `${player.barracks[player.barracks.length - 1].name}`);
         playerPeonAdded.innerHTML = `<b>${player.barracks[player.barracks.length - 1].name}:</b> ${player.barracks[player.barracks.length - 1].job}`;
         playerBarracksElement.appendChild(playerPeonAdded);
     }
@@ -125,7 +128,7 @@ const continueButtonHandler = () => {
     // start player/computer's turn
     if (playerTurn)
         outputElement.innerHTML = 'Your turn.<br><br>Create a new Peon or select one to change their job.';
-    else {
+    else if (!gameOver) {
         computerTurn();
     }
     
@@ -182,18 +185,18 @@ const damageAndEval = () => {
     if (player.hp <= 0) {
         // player lost
         outputElement.innerHTML = `Oh no!<br><br>You lost!!`
+        gameOver = true;
         createPeonElement.remove();
         selectPeonElement.remove();
     }
     else if (computer.hp <= 0) {
         // player won
         outputElement.innerHTML = `Congrats!<br><br>You won!!`
+        gameOver = true;
         createPeonElement.remove();
         selectPeonElement.remove();
     }
     else {
-        
-
         if (!playerTurn) {
             // Display result of player's turn
             outputElement.innerHTML = `End of ${player.name}'s Turn:<br><br>${player.name} attacked for ${attack} damage.<br>${player.name} repaired for ${repair} health.`;
@@ -204,7 +207,8 @@ const damageAndEval = () => {
         }
         
         // Creates new 'Continue' button to continue when player is ready
-        if (!computerTurnComplete) {
+        if (!computerTurnComplete && !gameOver) {
+            console.log('continue displayed');
             const newButton = document.createElement('button');
             newButton.setAttribute('id', 'continueButton');
             newButton.innerText = 'Continue';
@@ -244,6 +248,37 @@ const inputButtonHandler = () => {
         start = false;
 
         outputElement.innerHTML = `Welcome ${player.name}!<br><br>You are in your kingdom and you are being invaded by an enemy kingdom. Each turn you can choose to either create a Peon or select one to change its job. Create your first one now to start the game.`;
+    }
+    else if (playerSelection === true) {
+        let validInput = false;
+
+        // Iterates over player barracks to see if that named peon exists
+        player.barracks.forEach( fighter => {
+            if (inputBoxElement.value == fighter.name) {
+                // valid input, update peon
+                validInput = true;
+                playerSelection = false;
+                if (fighter.job === 'attack')
+                    fighter.job = 'repair';
+                else
+                    fighter.job = 'attack';
+
+                // Update player barracks with job change
+                changePeonElement = document.querySelector(`#${inputBoxElement.value}`);
+                changePeonElement.innerHTML = `<b>${fighter.name}:</b> ${fighter.job}`;
+
+                // Remove input box and button, evaluate end of turn
+                inputBoxElement.remove();
+                inputButtonElement.remove();
+                damageAndEval();
+            }
+        });
+
+        // Displays error if invalid input and clears box
+        if (validInput === false) {
+            outputElement.innerHTML = `Invalid name entered.<br><br>Please enter the name of the peon you would like to change the job of.`;
+            inputBoxElement.value = '';
+        }
     }
     else if (playerCreatePeon) {
         // Allows the user to enter a name and choose the job
@@ -298,7 +333,8 @@ const newPeonAction = action => {
 
 // >>>>>>>>>> SELECT <<<<<<<<<<<
 const selectPeon = () => {
-    damageAndEval();
+    outputElement.innerHTML = `Please enter the name of the peon you would like to change the job of.`;
+    addInputAndSubmit();
 }
 
 const createPeonHandler = () => {
@@ -326,6 +362,7 @@ const selectPeonHandler = () => {
             newPeonAction('repair');
         else if (!playerCreatePeon && !continueButtonDisplayed) {
             playerTurn = false;
+            playerSelection = true;
             selectPeon();
         }
     }
