@@ -87,6 +87,14 @@ const computerTurn = () => {
     }
     else {
         // comp select peon action
+        // Randomly assigns index to change
+        let index = getRandomInt(0, computer.barracks.length - 1);
+
+        // Makes change
+        if (computer.barracks[index] === 'repair')
+            computer.barracks[index] = 'attack';
+        else if (computer.barracks[index] === 'attack')
+            computer.barracks[index] = 'repair';
     }
 
     
@@ -141,28 +149,40 @@ const damageAndEval = () => {
         player.hp -= attack;
     }
 
+    // Ensures negative health is not displayed
+    if (player.hp < 0)
+        player.hp = 0;
+    if (computer.hp < 0)
+        computer.hp = 0;
+
+    // Updates player and computer health in the HTML
+    // Found from url below:
+    // https://stackoverflow.com/questions/4784568/set-content-of-html-span-with-javascript
+    while( playerHpElement.firstChild ) {
+        playerHpElement.removeChild( playerHpElement.firstChild );
+    }
+    playerHpElement.appendChild( document.createTextNode(player.hp) );
+    // Same as above
+    while( computerHpElement.firstChild ) {
+        computerHpElement.removeChild( computerHpElement.firstChild );
+    }
+    computerHpElement.appendChild( document.createTextNode(computer.hp) );
+    
     // Determines if anyone has died, else continues game
     if (player.hp <= 0) {
         // player lost
-        console.log('Player lost');
+        outputElement.innerHTML = `Oh no!<br><br>You lost!!`
+        createPeonElement.remove();
+        selectPeonElement.remove();
     }
     else if (computer.hp <= 0) {
         // player won
-        console.log('Player won');
+        outputElement.innerHTML = `Congrats!<br><br>You won!!`
+        createPeonElement.remove();
+        selectPeonElement.remove();
     }
     else {
-        // Updates player and computer health in the HTML
-        // Found from url below:
-        // https://stackoverflow.com/questions/4784568/set-content-of-html-span-with-javascript
-        while( playerHpElement.firstChild ) {
-            playerHpElement.removeChild( playerHpElement.firstChild );
-        }
-        playerHpElement.appendChild( document.createTextNode(player.hp) );
-        // Same as above
-        while( computerHpElement.firstChild ) {
-            computerHpElement.removeChild( computerHpElement.firstChild );
-        }
-        computerHpElement.appendChild( document.createTextNode(computer.hp) );
+        
 
         if (!playerTurn) {
             // Display result of player's turn

@@ -11,7 +11,7 @@ button {
 
   #display {
     width: 500px;
-    height: 700px;
+    height: 779px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -24,7 +24,7 @@ button {
 #screen {
     display: flex;
     flex-direction: column;
-    height: 50%;
+    height: 350px;
     background-color: white;
     color: black;
 }
@@ -80,6 +80,11 @@ button {
 
 #output {
     padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+    text-align: center;
 }
 
 .temp {
@@ -88,14 +93,6 @@ button {
     justify-content: center;
     margin-top: auto;
     gap: 20px;
-}
-
-#output {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    margin: auto;
-    text-align: center;
 }
 
 #start-button {
@@ -111,7 +108,7 @@ button {
 }
 
 #barracks-display {
-    height: 35%;
+    height: 409px;
     background-color: black;
     color: white;
 
